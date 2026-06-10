@@ -1,0 +1,320 @@
+/* ─── SHARED INNER PAGE STYLES ─── */
+/* Inherits from styles.css — add this after styles.css on inner pages */
+
+.page-wrap {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  padding: 120px 0 80px;
+}
+
+.page-wrap-light {
+  min-height: 100vh;
+  background: var(--bg-light);
+  color: var(--text-on-light);
+  padding: 120px 0 80px;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.page-header .section-h2 {
+  color: var(--ivory);
+}
+
+.page-header .section-body {
+  color: var(--muted-dark);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Inner page nav back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+  margin-bottom: 48px;
+  transition: color 0.2s;
+}
+
+.back-link:hover { color: var(--chartreuse); }
+
+/* Cards on dark */
+.card-dark {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.card-dark-featured {
+  background: rgba(198,214,43,0.05);
+  border: 1px solid var(--chartreuse);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+/* Form styles shared */
+.form-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+  padding: 48px;
+  position: relative;
+}
+
+.form-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), var(--chartreuse));
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(247,244,239,0.3);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 16px 18px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(247,244,239,0.2);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--brand);
+}
+
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.form-group select option {
+  background: var(--bg-dark);
+  color: var(--ivory);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.form-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--brand);
+}
+
+.form-check label {
+  font-size: 0.85rem;
+  color: var(--muted-dark);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.form-check label a {
+  color: var(--chartreuse);
+  text-decoration: underline;
+}
+
+.form-btn {
+  width: 100%;
+  background: var(--chartreuse);
+  color: var(--dark);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+
+.form-btn:hover { background: #b5c420; transform: translateY(-1px); }
+
+.form-fine {
+  font-size: 0.75rem;
+  color: rgba(247,244,239,0.25);
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.7;
+}
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.form-success.show { display: block; }
+
+.form-success-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--ivory);
+  margin-bottom: 12px;
+}
+
+.form-success p {
+  font-size: 1rem;
+  color: var(--muted-dark);
+  line-height: 1.7;
+}
+
+/* Under 300 warning */
+.under-300-msg {
+  display: none;
+  background: rgba(212,175,55,0.06);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.under-300-msg.show { display: block; }
+
+.under-300-msg p {
+  font-size: 0.875rem;
+  color: var(--ivory);
+  line-height: 1.6;
+}
+
+/* Pricing card */
+.pricing-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.pricing-card-featured {
+  border-color: var(--chartreuse);
+  background: rgba(198,214,43,0.04);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--chartreuse);
+  color: var(--dark);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pricing-amount {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--chartreuse);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.pricing-reg {
+  font-size: 0.8rem;
+  color: var(--muted-dark);
+  margin-bottom: 20px;
+}
+
+.pricing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.pricing-list li {
+  font-size: 0.9rem;
+  color: var(--ivory);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.pricing-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--chartreuse);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .page-wrap, .page-wrap-light { padding: 100px 0 60px; }
+  .form-wrap { padding: 28px 20px; }
+  .pricing-card, .pricing-card-featured { padding: 28px 20px; }
+}

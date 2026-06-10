@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | Reclaim Your Revenue</title>
+<meta name="description" content="Our portfolio of client work — coming soon. Be the first to see results from real businesses that reclaimed their revenue.">
+<link rel="canonical" href="https://reclaimyourrevenue.com/portfolio.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/shared.css">
+</head>
+<body>
+<script src="/nav.js"></script>
+<main id="main">
+<div class="page-wrap" style="min-height:80vh;display:flex;align-items:center;">
+  <div class="container">
+    <div style="max-width:600px;margin:0 auto;text-align:center;">
+      <p class="eyebrow eyebrow-gold" style="display:block;margin-bottom:16px;">Portfolio</p>
+      <h1 class="section-h2" style="color:var(--ivory);margin-bottom:20px;">Results Are Being Built.<br><em>Check Back Soon.</em></h1>
+      <p style="font-family:var(--font-sub);font-size:1.2rem;color:var(--muted-dark);line-height:1.7;margin-bottom:40px;">We are currently delivering campaigns and building results with our founding clients. Real case studies — real numbers — coming soon.</p>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--border-dark);border-radius:var(--radius);padding:36px;margin-bottom:32px;">
+        <p style="font-size:0.9rem;color:var(--muted-dark);margin-bottom:20px;">Get notified when the portfolio launches. Be the first to see real results.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+          <input type="email" id="portfolio-email" placeholder="Your email address" style="flex:1;min-width:200px;background:rgba(255,255,255,0.04);border:1px solid rgba(247,244,239,0.2);color:var(--ivory);font-family:var(--font-body);font-size:0.95rem;padding:12px 16px;border-radius:4px;outline:none;" onfocus="this.style.borderColor='var(--brand)'" onblur="this.style.borderColor='rgba(247,244,239,0.2)'">
+          <button onclick="subscribePortfolio()" class="btn btn-accent" style="padding:12px 24px;flex-shrink:0;">Notify Me</button>
+        </div>
+        <p id="portfolio-msg" style="font-size:0.8rem;color:var(--chartreuse);margin-top:10px;display:none;">You are on the list. We will reach out when results are ready to share.</p>
+      </div>
+      <a href="/" class="btn btn-outline">Back to Home</a>
+    </div>
+  </div>
+</div>
+</main>
+<script src="/main.js"></script>
+<script>
+function subscribePortfolio(){
+  var email=document.getElementById('portfolio-email').value.trim();
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Please enter a valid email address.');return;}
+  fetch('https://formsubmit.co/ajax/hello@reclaimyourrevenue.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:email,_subject:'Portfolio Waitlist — '+email,source:'Portfolio Page',_captcha:'false'})}).catch(function(){});
+  document.getElementById('portfolio-msg').style.display='block';
+  document.getElementById('portfolio-email').disabled=true;
+}
+</script>
+</body>
+</html>

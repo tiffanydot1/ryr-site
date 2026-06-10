@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Revenue Leak Report | Reclaim Your Revenue</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/shared.css">
+<style>
+body{background:#0D0D0D;color:#F7F4EF;}
+.results-wrap{min-height:100vh;padding:100px 24px 80px;max-width:720px;margin:0 auto;}
+.results-header{text-align:center;margin-bottom:48px;}
+.results-h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#F7F4EF;line-height:1.15;margin-bottom:16px;}
+.results-h1 em{font-style:italic;color:#C6D62B;}
+.summary-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:40px;}
+.summary-pill{background:rgba(255,255,255,0.04);border:1px solid rgba(247,244,239,0.08);border-radius:8px;padding:16px 12px;text-align:center;}
+.summary-pill-name{font-size:8px;font-weight:700;letter-spacing:3px;color:#D4AF37;font-family:'Lato',sans-serif;margin-bottom:6px;}
+.summary-pill-pct{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;line-height:1;}
+.pillar-card{background:rgba(255,255,255,0.04);border-radius:10px;padding:28px 32px;margin-bottom:16px;border-left:4px solid #00555A;position:relative;}
+.pillar-card.low{border-left-color:#27ae60;}
+.pillar-card.moderate{border-left-color:#D4AF37;}
+.pillar-card.significant{border-left-color:#e67e22;}
+.pillar-card.critical{border-left-color:#c0392b;}
+.pillar-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.pillar-card-name{font-size:9px;font-weight:700;letter-spacing:4px;color:#D4AF37;font-family:'Lato',sans-serif;margin-bottom:6px;}
+.pillar-card-diagnosis{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#F7F4EF;line-height:1.2;}
+.pillar-card-score{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;line-height:1;text-align:right;flex-shrink:0;}
+.pillar-bar-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-bottom:14px;}
+.pillar-bar-fill{height:3px;border-radius:2px;transition:width 1.2s ease;width:0%;}
+.pillar-card-copy{font-size:0.9rem;color:rgba(247,244,239,0.7);line-height:1.75;font-family:'Lato',sans-serif;}
+.critical-flag{display:flex;align-items:center;gap:8px;font-size:12px;color:#c0392b;font-weight:700;margin-top:12px;font-family:'Lato',sans-serif;}
+.cta-box{border:1px solid rgba(212,175,55,0.35);border-radius:12px;padding:48px 40px;text-align:center;margin-top:48px;background:rgba(212,175,55,0.04);}
+.cta-box-h{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-style:italic;color:#F7F4EF;margin-bottom:14px;line-height:1.3;}
+.cta-box-body{font-size:0.95rem;color:rgba(247,244,239,0.7);line-height:1.8;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta-box-note{font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:14px;font-style:italic;line-height:1.6;}
+@media(max-width:600px){.summary-strip{grid-template-columns:repeat(2,1fr);}.pillar-card{padding:20px;}.pillar-card-header{flex-direction:column;gap:8px;}.pillar-card-score{text-align:left;font-size:28px;}.cta-box{padding:28px 20px;}}
+</style>
+</head>
+<body>
+<a href="/" class="back-link" style="position:fixed;top:24px;left:24px;z-index:100;font-family:'Lato',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(247,244,239,0.5);display:flex;align-items:center;gap:6px;text-decoration:none;">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  Home
+</a>
+<div class="results-wrap">
+  <div class="results-header">
+    <span style="font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#D4AF37;display:block;margin-bottom:12px;">Your Revenue Leak Report</span>
+    <h1 class="results-h1">Here's Exactly Where<br>Your Revenue Is <em>Leaking.</em></h1>
+    <p style="font-size:0.95rem;color:rgba(247,244,239,0.65);line-height:1.7;max-width:500px;margin:0 auto;">Your results are in. Here is a breakdown of each revenue pillar and what it means for your business right now.</p>
+  </div>
+  <div class="summary-strip" id="summary-strip" role="region" aria-label="Pillar score summary"></div>
+  <div id="pillar-results" role="region" aria-label="Detailed pillar results"></div>
+  <div class="cta-box">
+    <h2 class="cta-box-h">Your score is in.<br>Here is what happens next.</h2>
+    <p class="cta-box-body">You now know where your revenue is leaking. The question is what you are going to do about it. We find the leaks. We stop the loss. You reclaim your money.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://square.link/u/y79NwlKX" class="btn btn-accent">Book a Revenue Recovery Session — $97</a>
+      <a href="/" class="btn btn-outline">Return Home</a>
+    </div>
+    <p class="cta-box-note">This is a working session. Not a sales call. We will map exactly where your revenue is leaking and what to reclaim first.</p>
+  </div>
+</div>
+<script>
+var sessionData={};
+try{sessionData=JSON.parse(sessionStorage.getItem('ryrSession')||'{}');}catch(e){}
+var copy={
+  CAPTURE:{low:{label:'Revenue Protected',text:'Your capture process is working. People are getting through and getting booked. Keep it strong as you grow.'},moderate:{label:'Revenue At Risk',text:'Some potential clients are slipping through before you ever get a chance to serve them. A few system fixes here could recover meaningful revenue fast.'},significant:{label:'Significant Leak',text:'You are losing qualified people at the very first step. Missed calls and slow response times are costing you more than you realize.'},critical:{label:'Critical Leak Detected',text:'Clients are trying to reach you and not getting through. Every day this goes unfixed is revenue you will not get back.'}},
+  CONVERT:{low:{label:'Revenue Protected',text:'Your team is doing a solid job converting opportunities. There is still room to grow but you are not losing revenue here.'},moderate:{label:'Revenue At Risk',text:'Revenue is being left on the table during client interactions. Your team has the opportunity right in front of them but is not fully working it.'},significant:{label:'Significant Leak',text:'Clients are buying less than they could and upsells are not happening consistently. This is costing you every single day.'},critical:{label:'Critical Leak Detected',text:'Your conversion process has real holes. Clients are leaving having spent a fraction of what they could have. This needs immediate attention.'}},
+  DELIVER:{low:{label:'Revenue Protected',text:'Your clients are leaving satisfied and coming back. Your delivery process is solid. Make sure it scales without slipping.'},moderate:{label:'Revenue At Risk',text:'Your service is good but the follow-through after the visit needs work. Clients who should be returning regularly are not being given a reason to.'},significant:{label:'Significant Leak',text:'You are delivering the service but losing the relationship right after. No follow-up. No rebooking. One great visit should turn into ten.'},critical:{label:'Critical Leak Detected',text:'Your delivery experience is creating churn. Clients are not returning and not referring others. The system around the service needs rebuilding.'}},
+  RECOVER:{low:{label:'Revenue Protected',text:'You are staying connected to past clients. Keep it up and layer in a referral system to turn your best clients into your best marketers.'},moderate:{label:'Revenue At Risk',text:'You have inactive clients in your database that have not heard from you in a while. That is lost revenue — and a significant portion is still within reach.'},significant:{label:'Significant Leak',text:'Former clients, cold leads, and no-shows are sitting untouched. Nobody has gone back to get them. That is money already earned and never collected.'},critical:{label:'Critical Leak Detected',text:'Your database is full of people who already said yes to you once. Nobody has followed up. That is money already earned and waiting to be reclaimed.'}}
+};
+var colors={low:'#27ae60',moderate:'#D4AF37',significant:'#e67e22',critical:'#c0392b'};
+var pillars=['CAPTURE','CONVERT','DELIVER','RECOVER'];
+window.onload=function(){
+  var pcts=sessionData.pillarPcts||{CAPTURE:45,CONVERT:60,DELIVER:30,RECOVER:75};
+  var flags=sessionData.pillarFlags||{};
+  var summaryHtml='';
+  pillars.forEach(function(p){var pct=pcts[p]||0;var level=pct<=25?'low':pct<=50?'moderate':pct<=75?'significant':'critical';summaryHtml+='<div class="summary-pill"><p class="summary-pill-name">'+p+'</p><p class="summary-pill-pct" style="color:'+colors[level]+'">'+pct+'%</p></div>';});
+  document.getElementById('summary-strip').innerHTML=summaryHtml;
+  var html='';
+  pillars.forEach(function(p){var pct=pcts[p]||0;var level=pct<=25?'low':pct<=50?'moderate':pct<=75?'significant':'critical';var c=copy[p][level];var color=colors[level];var flag=flags[p]?'<div class="critical-flag" role="alert"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Critical gap detected. Immediate attention recommended.</div>':'';
+    html+='<div class="pillar-card '+level+'" role="article" aria-label="'+p+' pillar results"><div class="pillar-card-header"><div><p class="pillar-card-name">'+p+'</p><p class="pillar-card-diagnosis">'+c.label+'</p></div><div class="pillar-card-score" style="color:'+color+'">'+pct+'%</div></div><div class="pillar-bar-track"><div class="pillar-bar-fill" id="bar-'+p+'" style="background:'+color+'"></div></div><p class="pillar-card-copy">'+c.text+'</p>'+flag+'</div>';});
+  document.getElementById('pillar-results').innerHTML=html;
+  setTimeout(function(){pillars.forEach(function(p){var pct=pcts[p]||0;var bar=document.getElementById('bar-'+p);if(bar)bar.style.width=pct+'%';});},200);
+};
+</script>
+</body>
+</html>

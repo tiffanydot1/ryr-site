@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Leak Audit | Reclaim Your Revenue</title>
+<meta name="description" content="Find out exactly where your business is losing money. 12 questions. 3 minutes. Instant results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/shared.css">
+<style>
+body{background:#0D0D0D;color:#F7F4EF;}
+.audit-wrap{min-height:100vh;padding:100px 24px 80px;max-width:680px;margin:0 auto;}
+.audit-progress{display:flex;align-items:center;gap:8px;margin-bottom:48px;flex-wrap:wrap;}
+.audit-step{display:flex;align-items:center;gap:6px;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(247,244,239,0.4);}
+.audit-step.done{color:#00555A;}
+.audit-step.active{color:#F7F4EF;}
+.audit-step-num{width:24px;height:24px;border-radius:50%;background:rgba(247,244,239,0.08);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;}
+.audit-step.done .audit-step-num{background:#00555A;color:#F7F4EF;}
+.audit-step.active .audit-step-num{background:#C6D62B;color:#0D0D0D;}
+.audit-connector{height:1px;width:20px;background:rgba(247,244,239,0.1);}
+.q-block{display:none;animation:fadeUp 0.4s ease forwards;}
+.q-block.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.q-eyebrow{font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#D4AF37;margin-bottom:12px;display:block;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#F7F4EF;line-height:1.25;margin-bottom:32px;}
+.q-options{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.q-option{background:rgba(255,255,255,0.04);border:1px solid rgba(247,244,239,0.1);border-radius:8px;padding:16px 20px;cursor:pointer;font-family:'Lato',sans-serif;font-size:0.95rem;color:#F7F4EF;transition:all 0.2s;text-align:left;}
+.q-option:hover{border-color:rgba(0,85,90,0.6);background:rgba(0,85,90,0.08);}
+.q-option.selected{border-color:#00555A;background:rgba(0,85,90,0.15);}
+.q-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;}
+.q-progress{font-family:'Lato',sans-serif;font-size:0.8rem;color:rgba(247,244,239,0.4);}
+.q-bar{height:3px;background:rgba(247,244,239,0.08);border-radius:2px;margin-bottom:32px;}
+.q-bar-fill{height:3px;background:#C6D62B;border-radius:2px;transition:width 0.4s ease;}
+</style>
+</head>
+<body>
+<a href="/#audit" class="back-link" style="position:fixed;top:24px;left:24px;z-index:100;font-family:'Lato',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(247,244,239,0.5);display:flex;align-items:center;gap:6px;text-decoration:none;">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  Back
+</a>
+
+<div class="audit-wrap">
+  <div class="audit-progress" id="audit-progress" role="navigation" aria-label="Audit progress"></div>
+  <div class="q-bar"><div class="q-bar-fill" id="q-bar-fill" style="width:0%"></div></div>
+
+  <div id="questions-wrap"></div>
+
+  <div class="q-nav">
+    <button class="btn btn-outline" id="btn-back" onclick="prevQ()" style="display:none;">Back</button>
+    <span class="q-progress" id="q-progress-text">Question 1 of 12</span>
+    <button class="btn btn-accent" id="btn-next" onclick="nextQ()" disabled>Next</button>
+  </div>
+</div>
+
+<script>
+var questions = [
+  {pillar:'CAPTURE',text:'When a potential client calls your business after hours or during a busy period, what typically happens?',options:['It rings and goes to voicemail — most people hang up','Someone usually calls back the next business day','We have a system that captures their information','Calls go unanswered and we rarely follow up']},
+  {pillar:'CAPTURE',text:'How quickly does your team typically respond to a new online inquiry or contact form submission?',options:['Within the hour','Within the same business day','Within a day or two','Honestly — it varies and sometimes slips']},
+  {pillar:'CAPTURE',text:'When someone expresses interest in your services but does not book immediately, what happens next?',options:['We have an automated follow-up sequence that stays in touch','Someone on the team manually follows up once or twice','We send a quote and wait to hear back','We do not have a consistent follow-up process']},
+  {pillar:'CONVERT',text:'When a client is in session or being served, how often does your team present additional services or products?',options:['Consistently — it is built into the service process','Sometimes — depends on the staff member','Rarely — we focus on delivering the service','Almost never — it feels awkward to bring it up']},
+  {pillar:'CONVERT',text:'How clear is your pricing and what is included in your services to a new client?',options:['Very clear — it is on our website and explained before they start','Somewhat clear — we explain verbally during intake','Not very clear — clients often ask questions about costs','Unclear — pricing is confusing and leads to friction']},
+  {pillar:'CONVERT',text:'When a new client comes in for the first time, how structured is your process for converting them to a regular client?',options:['We have a clear onboarding sequence and rebooking process','We explain our services but rely on the client to come back','We are inconsistent — it depends on staff and timing','We have no formal conversion process']},
+  {pillar:'DELIVER',text:'After a client completes a session or service, how does your business follow up?',options:['Automated follow-up within 24 hours with rebooking prompt','Someone follows up personally within a few days','We send a general email newsletter occasionally','We rarely follow up after service delivery']},
+  {pillar:'DELIVER',text:'How would you describe your clients\' experience from booking to completion?',options:['Seamless — consistent, professional, and memorable','Good in most places but inconsistent in a few spots','Variable — depends on the day and who is working','Needs significant improvement']},
+  {pillar:'DELIVER',text:'How actively does your business collect and respond to client reviews and testimonials?',options:['We actively request reviews and respond to all of them','We collect some reviews but do not have a consistent process','We have a few reviews but no active strategy','We have almost no reviews and no process to get them']},
+  {pillar:'RECOVER',text:'How recently have you reached out to clients who have not visited or purchased in 90 days or more?',options:['Within the last 30 days — we have an active reactivation system','A few months ago — we did a one-time outreach','We have thought about it but have not done it','Never — our inactive client list has not been contacted']},
+  {pillar:'RECOVER',text:'When a client cancels or goes inactive, what happens?',options:['We have an automated sequence that tries to win them back','Someone follows up manually once or twice','We send a general email but nothing specific to them','Nothing — we move on and focus on new clients']},
+  {pillar:'RECOVER',text:'How organized is your database of past clients and inactive leads?',options:['Clean and organized — we could run a campaign today','Somewhat organized — needs some cleanup','Messy — scattered across systems or spreadsheets','We do not have an organized client database']}
+];
+
+var pillarScores = {CAPTURE:0,CONVERT:0,DELIVER:0,RECOVER:0};
+var pillarCounts = {CAPTURE:0,CONVERT:0,DELIVER:0,RECOVER:0};
+var answers = [];
+var current = 0;
+
+var scoreMap = [0,25,75,100];
+
+function buildQuestions(){
+  var wrap = document.getElementById('questions-wrap');
+  questions.forEach(function(q,i){
+    var div = document.createElement('div');
+    div.className = 'q-block' + (i===0?' active':'');
+    div.id = 'q-'+i;
+    div.setAttribute('role','group');
+    div.setAttribute('aria-label','Question '+(i+1));
+    var html = '<span class="q-eyebrow">'+q.pillar+'</span>';
+    html += '<h2 class="q-text">'+q.text+'</h2>';
+    html += '<div class="q-options">';
+    q.options.forEach(function(opt,oi){
+      html += '<button class="q-option" onclick="selectOption('+i+','+oi+',this)" aria-label="Option: '+opt.replace(/"/g,"'")+'">'+opt+'</button>';
+    });
+    html += '</div>';
+    div.innerHTML = html;
+    wrap.appendChild(div);
+  });
+}
+
+function selectOption(qIdx,oIdx,btn){
+  var block = document.getElementById('q-'+qIdx);
+  block.querySelectorAll('.q-option').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  answers[qIdx] = oIdx;
+  document.getElementById('btn-next').disabled = false;
+}
+
+function updateProgress(){
+  var pct = Math.round((current/questions.length)*100);
+  document.getElementById('q-bar-fill').style.width = pct+'%';
+  document.getElementById('q-progress-text').textContent = 'Question '+(current+1)+' of '+questions.length;
+  document.getElementById('btn-back').style.display = current > 0 ? '' : 'none';
+}
+
+function nextQ(){
+  if(answers[current]===undefined)return;
+  if(current < questions.length-1){
+    document.getElementById('q-'+current).classList.remove('active');
+    current++;
+    document.getElementById('q-'+current).classList.add('active');
+    document.getElementById('btn-next').disabled = answers[current]===undefined;
+    if(current===questions.length-1){document.getElementById('btn-next').textContent='See My Results';}
+    updateProgress();
+  } else {
+    calculateAndRedirect();
+  }
+}
+
+function prevQ(){
+  if(current>0){
+    document.getElementById('q-'+current).classList.remove('active');
+    current--;
+    document.getElementById('q-'+current).classList.add('active');
+    document.getElementById('btn-next').disabled = answers[current]===undefined;
+    document.getElementById('btn-next').textContent = current===questions.length-1?'See My Results':'Next';
+    updateProgress();
+  }
+}
+
+function calculateAndRedirect(){
+  var pcts = {CAPTURE:0,CONVERT:0,DELIVER:0,RECOVER:0};
+  var counts = {CAPTURE:0,CONVERT:0,DELIVER:0,RECOVER:0};
+  var flags = {CAPTURE:false,CONVERT:false,DELIVER:false,RECOVER:false};
+  questions.forEach(function(q,i){
+    var score = scoreMap[answers[i]||0];
+    pcts[q.pillar] += score;
+    counts[q.pillar]++;
+  });
+  Object.keys(pcts).forEach(function(p){pcts[p]=Math.round(pcts[p]/counts[p]);if(pcts[p]>=75)flags[p]=true;});
+  var session = {pillarPcts:pcts,pillarFlags:flags,answers:answers,timestamp:Date.now()};
+  try{sessionStorage.setItem('ryrSession',JSON.stringify(session));}catch(e){}
+  window.location.href='/audit/results.html';
+}
+
+buildQuestions();
+updateProgress();
+</script>
+</body>
+</html>
